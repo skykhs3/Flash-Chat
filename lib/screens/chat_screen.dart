@@ -96,10 +96,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () async {
+                    onPressed: () {
+                      String temp=messageText;
                       messagesTextController.clear();
-                      await _firestore.collection('messages').add({
-                        'text': messageText,
+                      messageText='';
+                          _firestore.collection('messages').add({
+                        'text': temp,
                         'sender': loggedInUser.email,
                         'time':FieldValue.serverTimestamp()///add this
                       });
