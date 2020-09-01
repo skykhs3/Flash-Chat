@@ -103,7 +103,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           _firestore.collection('messages').add({
                         'text': temp,
                         'sender': loggedInUser.email,
-                        'time':FieldValue.serverTimestamp()///add this
+                            'time':DateTime.now(),
+                    //    'time':FieldValue.serverTimestamp()///add this
                       });
                       //Implement send functionality.
                     },
@@ -157,7 +158,7 @@ class MessagesStream extends StatelessWidget {
 
             final messageBubble =
                 MessageBubble(sender: messageSender, text: messageText,isMe:(messageSender==currentUser),
-                 //   time: DateTime.now(),
+                    time: messageTime==null?null:messageTime.toDate(),
                 );///add this.
             messageBubbles.add(messageBubble);
           }
@@ -177,15 +178,13 @@ class MessagesStream extends StatelessWidget {
 
 class MessageBubble extends StatelessWidget {
   MessageBubble({this.text, this.sender,this.isMe
-
-  //  ,this.time
-
+    ,this.time
   });///addthis
 
   final String sender;
   final String text;
   final bool isMe ;
-//  final DateTime time;///add this
+  final DateTime time;///add this
 
 
   @override
@@ -197,7 +196,7 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment: isMe?CrossAxisAlignment.end:CrossAxisAlignment.start,
         children: [
           Text(
-            '',
+         '${time.toString()} ${DateTime.now()}',
             style: TextStyle(
               fontSize: 12,
               color: Colors.black54,
