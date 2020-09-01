@@ -19,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth= FirebaseAuth.instance;
   bool showSpinner =false;
   String password,email;
+  String errorCode='';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     email = value;
                     //Do something with the user input.
                   },
-                  onSubmitted: (a){
-                    print('sibal');
-                  },
                   decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your email',
                   ),
@@ -72,6 +71,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(
                   height: 24.0,
+
+                  child: Center(child: Text(errorCode,style: TextStyle(color: Colors.red),)),
                 ),
                 RoundedButton(
                     onPressed: () async{
@@ -89,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       }
                       catch(e){
-                        print(e);
+                        errorCode=e.code;
                         setState(() {
                           showSpinner =false;
                         });

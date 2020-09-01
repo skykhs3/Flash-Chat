@@ -19,6 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
   bool showSpinner =false;
   String password, email;
+  String errorCode='';
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +72,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 SizedBox(
                   height: 24.0,
+                  child: Center(child: Text(errorCode,style: TextStyle(color: Colors.red),)),
                 ),
                 RoundedButton(onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
-                  print(email);
-                  print(password);
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
@@ -89,7 +89,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   }
                   catch(e){
-                      print(e.toString());
+                      errorCode=e.code;
                       setState(() {
                         showSpinner=false;
                       });

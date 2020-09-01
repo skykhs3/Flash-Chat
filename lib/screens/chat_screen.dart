@@ -153,7 +153,7 @@ class MessagesStream extends StatelessWidget {
 
         //    if(currentUser == messageSender){
            //   print(messageTime.seconds);
-              print('$messageSender $currentUser');
+          //    print('$messageSender $currentUser');
 
 
             final messageBubble =
@@ -196,7 +196,7 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment: isMe?CrossAxisAlignment.end:CrossAxisAlignment.start,
         children: [
           Text(
-         '${time.toString()} ${DateTime.now()}',
+         '${time.toString()}',
             style: TextStyle(
               fontSize: 12,
               color: Colors.black54,
